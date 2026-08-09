@@ -17,6 +17,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.46'
     testCompileOnly 'org.projectlombok:lombok:1.18.46'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.46'
+
+    implementation 'net.datafaker:datafaker:2.5.2'
 }
 
 test {
