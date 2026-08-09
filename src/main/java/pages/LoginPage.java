@@ -7,10 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class LoginPage extends BasePage
-{
-    public LoginPage(WebDriver driver)
-    {
+public class LoginPage extends BasePage {
+    public LoginPage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory
                 (driver, 10), this);
     }
@@ -27,19 +25,16 @@ public class LoginPage extends BasePage
     @FindBy(xpath = "//form/button[2]")
     WebElement btnRegistration;
 
-    public void fillLoginRegistrationForm(UserLombok user)
-    {
+    public void fillLoginRegistrationForm(UserLombok user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
     }
 
-    public void clickBtnLogin()
-    {
+    public void clickBtnLogin() {
         btnLogin.click();
     }
 
-    public void clickBtnRegistration()
-    {
+    public void clickBtnRegistration() {
         btnRegistration.click();
     }
 }

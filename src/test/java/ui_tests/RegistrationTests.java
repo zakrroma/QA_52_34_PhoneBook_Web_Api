@@ -9,20 +9,17 @@ import pages.LoginPage;
 
 import java.util.Random;
 
-public class RegistrationTests extends AppManager
-{
+public class RegistrationTests extends AppManager {
     @BeforeMethod
-    public void goToRegistrationLoginPage()
-    {
+    public void goToRegistrationLoginPage() {
         new HomePage(getDriver()).clickNavLinkLogin();
     }
 
     @Test
-    public void registrationPositiveTest()
-    {
+    public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
         UserLombok user = UserLombok.builder()
-                .username("kek"+i+"@qwer.ty")
+                .username("kek" + i + "@qwer.ty")
                 .password("Kek1234!")
                 .build();
 
@@ -31,5 +28,10 @@ public class RegistrationTests extends AppManager
         loginPage.fillLoginRegistrationForm(user);
 
         loginPage.clickBtnRegistration();
+    }
+
+    @Test
+    public void testMethod() {
+        new HomePage(getDriver()).method();
     }
 }
