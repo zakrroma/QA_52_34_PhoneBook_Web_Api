@@ -29,9 +29,4 @@ public class RegistrationTests extends AppManager {
 
         loginPage.clickBtnRegistration();
     }
-
-    @Test
-    public void testMethod() {
-        new HomePage(getDriver()).method();
-    }
 }

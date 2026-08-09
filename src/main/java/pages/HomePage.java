@@ -17,19 +17,8 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//a[text()='LOGIN']")
     WebElement navLinkLogin;
-    @FindBy(xpath = "//form/input[1]")
-    WebElement inputEmail;
 
     public void clickNavLinkLogin() {
         navLinkLogin.click();
-    }
-
-    public void method() {
-        WebElement login = driver.findElement(By
-                .xpath("//a[text()='LOGIN']"));
-        login.click();
-        WebElement inputEmail = driver.findElement(By
-                .xpath("//form/input[1]"));
-        inputEmail.sendKeys("qwerty@qwer.ty");
     }
 }
