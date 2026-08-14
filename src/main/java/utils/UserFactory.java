@@ -14,7 +14,7 @@ public class UserFactory {
         String email = faker.internet().emailAddress();
         System.out.println("email: " + email);
     }
- */
+*/
     public static UserLombok positiveUser(){
         UserLombok user = UserLombok.builder()
                 .username(faker.internet().emailAddress())
