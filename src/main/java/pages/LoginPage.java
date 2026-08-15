@@ -1,6 +1,6 @@
 package pages;
 
-import dto.UserLombok;
+import dto.UserData;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,7 +25,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//form/button[2]")
     WebElement btnRegistration;
 
-    public void fillLoginRegistrationForm(UserLombok user) {
+    public void fillLoginRegistrationForm(UserData user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
     }

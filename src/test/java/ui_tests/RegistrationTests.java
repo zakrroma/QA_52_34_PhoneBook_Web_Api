@@ -1,6 +1,6 @@
 package ui_tests;
 
-import dto.UserLombok;
+import dto.UserData;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -23,7 +23,7 @@ public class RegistrationTests extends AppManager {
     @Test
     public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
-        UserLombok user = UserLombok.builder()
+        UserData user = UserData.builder()
                 .username("kek" + i + "@qwer.ty")
                 .password("Kek1234!")
                 .build();
@@ -37,7 +37,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationPositiveTest2() {
-        UserLombok user = positiveUser();
+        UserData user = positiveUser();
         System.out.println(user);
 
         loginPage.fillLoginRegistrationForm(user);
