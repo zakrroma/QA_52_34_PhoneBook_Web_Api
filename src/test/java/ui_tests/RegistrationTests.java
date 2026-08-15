@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
+
+import static utils.PropertiesReader.getProperty;
 import static utils.UserFactory.*;
 
 import java.util.Random;
@@ -24,8 +26,8 @@ public class RegistrationTests extends AppManager {
     public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
         UserData user = UserData.builder()
-                .username("kek" + i + "@qwer.ty")
-                .password("Kek1234!")
+                .username("username" + i + "@qwer.ty")
+                .password(getProperty("base.properties", "password"))
                 .build();
 
         loginPage.fillLoginRegistrationForm(user);
