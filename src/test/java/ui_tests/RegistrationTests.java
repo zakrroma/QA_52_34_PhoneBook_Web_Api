@@ -9,7 +9,7 @@ import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static utils.PropertiesReader.getProperty;
+import static utils.PropertiesReader.*;
 import static utils.UserFactory.*;
 
 import java.util.Random;
