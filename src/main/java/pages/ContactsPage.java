@@ -15,7 +15,14 @@ public class ContactsPage extends BasePage {
     @FindBy(xpath = "//h1[text()=' No Contacts here!']")
     WebElement titleNoContactsHere;
 
+    @FindBy(xpath = "//button[text()='Sign Out']")
+    WebElement btnSignOut;
+
     public boolean validateTextInTitleNoContactsHere(String text) {
         return isTextInElementPresent(titleNoContactsHere, text);
+    }
+
+    public boolean isButtonSignOutPresent() {
+        return btnSignOut.isDisplayed();
     }
 }
