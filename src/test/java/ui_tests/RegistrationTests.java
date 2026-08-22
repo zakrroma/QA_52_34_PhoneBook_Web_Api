@@ -79,9 +79,18 @@ public class RegistrationTests extends AppManager {
                 .contains("Wrong email or password format"));
     }
 
-    @Test(dataProvider = "wrongEmailPasswordProvider",
+    @Test(dataProvider = "wrongPasswordProvider",
             dataProviderClass = UserDataProvider.class)
     public void registrationWrongPasswordFieldNegativeTest(UserData user) {
+        loginPage.fillLoginRegistrationForm(user);
+        loginPage.clickBtnRegistration();
+        Assert.assertTrue(loginPage.closeAlert()
+                .contains("Wrong email or password format"));
+    }
+
+    @Test(dataProvider = "wrongEmailProvider",
+            dataProviderClass = UserDataProvider.class)
+    public void registrationWrongEmailFieldNegativeTest(UserData user) {
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
         Assert.assertTrue(loginPage.closeAlert()

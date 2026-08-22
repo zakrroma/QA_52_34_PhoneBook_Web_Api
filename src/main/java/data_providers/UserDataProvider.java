@@ -12,11 +12,33 @@ import java.util.List;
 
 public class UserDataProvider {
     @DataProvider
-    public Iterator<UserData> wrongEmailPasswordProvider() {
+    public Iterator<UserData> wrongPasswordProvider() {
         List<UserData> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("src/test/resources/" +
-                        "wrong_email_password.csv"))) {
+                        "wrong_password.csv"))) {
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                String[] row = line.split(",");
+                list.add(UserData.builder()
+                        .username(row[0])
+                        .password(row[1])
+                        .build());
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("created an exception");
+        }
+        return list.listIterator();
+    }
+
+    @DataProvider
+    public Iterator<UserData> wrongEmailProvider() {
+        List<UserData> list = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(
+                new FileReader("src/test/resources/" +
+                        "wrong_email.csv"))) {
             String line = bufferedReader.readLine();
             while (line != null) {
                 String[] row = line.split(",");
