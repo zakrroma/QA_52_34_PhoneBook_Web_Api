@@ -5,15 +5,19 @@ import dto.UserData;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.TestNGListener;
 
 import static utils.PropertiesReader.*;
 import static utils.UserFactory.*;
 
 import java.util.Random;
+
+@Listeners(TestNGListener.class)
 
 public class RegistrationTests extends AppManager {
     LoginPage loginPage;
