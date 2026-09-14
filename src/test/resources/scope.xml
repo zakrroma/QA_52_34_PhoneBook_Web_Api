@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <test name="NoPackage">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="ui_tests.RegistrationTests"/>
+            <class name="ui_tests.LoginTests"/>
+        </classes>
+    </test>
+</suite>

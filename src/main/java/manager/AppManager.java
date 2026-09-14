@@ -18,14 +18,14 @@ public class AppManager {
 
     public Logger logger = LoggerFactory.getLogger(AppManager.class);
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(Method method) {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         logger.info("Test started with method: " + method.getName());
     }
 
-    @AfterMethod(enabled = false)
+    @AfterMethod//(enabled = false)
     public void tearDown() {
         if (driver != null) {
             driver.quit();

@@ -1,0 +1,3 @@
+./gradlew clean - clean reports
+./gradlew clean test - clean reports and execute all tests
+./gradlew clean scope - clean reports and execute task 'scope' from scope.xml
