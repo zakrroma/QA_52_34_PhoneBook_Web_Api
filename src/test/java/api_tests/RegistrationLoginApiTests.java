@@ -18,7 +18,9 @@ public class RegistrationLoginApiTests implements BaseApi {
     @Test
     public void registrationPositiveApiTest() {
         UserData user = positiveUser();
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
                 .post(requestBody)
@@ -32,7 +34,7 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 200);
     }
 
@@ -40,7 +42,9 @@ public class RegistrationLoginApiTests implements BaseApi {
     public void registrationWrongPasswordNegativeApiTest() {
         UserData user = positiveUser();
         user.setPassword("wrongPassword1");
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
                 .post(requestBody)
@@ -54,14 +58,16 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 400);
     }
 
     @Test
     public void registrationDuplicateUserDataNegativeApiTest() {
         UserData user = positiveUser();
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
                 .post(requestBody)
@@ -76,14 +82,16 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 409);
     }
 
     @Test
     public void registrationWrongRequestFormatNegativeApiTest() {
         UserData user = positiveUser();
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), TEXT);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
                 .post(requestBody)
@@ -97,7 +105,7 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 500);
     }
 
@@ -107,7 +115,9 @@ public class RegistrationLoginApiTests implements BaseApi {
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + LOGIN_URL)
                 .post(requestBody)
@@ -121,7 +131,7 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 200);
     }
 
@@ -131,7 +141,9 @@ public class RegistrationLoginApiTests implements BaseApi {
                 .username(getProperty("base.properties", "email"))
                 .password("wrongPassword1!")
                 .build();
+
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
         Request request = new Request.Builder()
                 .url(BASE_URL + LOGIN_URL)
                 .post(requestBody)
@@ -145,7 +157,7 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response);
+        //System.out.println(response);
         Assert.assertEquals(response.code(), 401);
     }
 }

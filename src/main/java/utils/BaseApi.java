@@ -11,6 +11,10 @@ public interface BaseApi {
             "/v1/user/registration/usernamepassword";
     String LOGIN_URL =
             "/v1/user/login/usernamepassword";
+    String CONTACTS_URL =
+            "/v1/contacts";
+    String DEL_ALL_CONTACTS_URL =
+            "/v1/contacts/clear";
 
     MediaType JSON = MediaType.get("application/json");
     OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
