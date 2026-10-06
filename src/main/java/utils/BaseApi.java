@@ -21,4 +21,6 @@ public interface BaseApi {
     String AUTH = "Authorization";
     Gson GSON = new Gson();
     MediaType TEXT = MediaType.get("text/plain");
+    MediaType HTML = MediaType.get("text/html");
+    MediaType ZIP = MediaType.get("application/zip");
 }

@@ -24,4 +24,13 @@ public class UserFactory {
                 .build();
         return user;
     }
+
+    public static UserData negativeUser() {
+        UserData user = UserData.builder()
+                .email(faker.internet().emailAddress())
+                .password(PropertiesReader.getProperty(
+                        "base.properties", "sign_up_pass"))
+                .build();
+        return user;
+    }
 }
