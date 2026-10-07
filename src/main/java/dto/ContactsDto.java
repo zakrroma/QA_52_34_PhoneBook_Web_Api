@@ -1,5 +1,6 @@
 package dto;
 
+import java.util.List;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UserData {
-    private String username;
-    private String password;
+public class ContactsDto {
+    private List<ContactDto> contacts;
 }

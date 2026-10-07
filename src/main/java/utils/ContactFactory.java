@@ -1,5 +1,6 @@
 package utils;
 
+import dto.ContactDto;
 import net.datafaker.Faker;
 
 public class ContactFactory {

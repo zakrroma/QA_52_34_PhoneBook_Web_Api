@@ -7,8 +7,11 @@ import okhttp3.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.BaseApi;
+import data_providers.UserDataProvider;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static utils.UserFactory.*;
 import static utils.PropertiesReader.*;
@@ -158,10 +161,14 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void registrationWrongKeyNegativeApiTest() {  // homework
-        UserData user = negativeUser();
+    public void registrationWrongKeyNegativeApiTest() { // homework
+        UserData user = positiveUser();
 
-        RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+        Map<String,String> invalidJson = new HashMap<>();
+        invalidJson.put("email", user.getUsername());
+        invalidJson.put("password", user.getPassword());
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(invalidJson), JSON);
 
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
@@ -176,8 +183,27 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 500); // doesn't work
+    }
+
+    @Test
+    public void registrationWrongRequestMethodNegativeApiTest() {
+        Request request = new Request.Builder()
+                .url(BASE_URL + REG_URL)
+                .get()
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         //System.out.println(response);
-        Assert.assertEquals(response.code(), 500);
+        Assert.assertEquals(response.code(), 403);
     }
 
     @Test
@@ -213,6 +239,50 @@ public class RegistrationLoginApiTests implements BaseApi {
                 .password("wrongPassword1!")
                 .build();
 
+        RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + LOGIN_URL)
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //System.out.println(response);
+        Assert.assertEquals(response.code(), 401);
+    }
+
+    @Test(dataProvider = "wrongEmailProvider",
+            dataProviderClass = UserDataProvider.class)
+    public void loginWrongUsernameDataProviderNegativeApiTest(UserData user) {
+        RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + LOGIN_URL)
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //System.out.println(response);
+        Assert.assertEquals(response.code(), 401);
+    }
+
+    @Test(dataProvider = "wrongPasswordProvider",
+            dataProviderClass = UserDataProvider.class)
+    public void loginWrongPasswordDataProviderNegativeApiTest(UserData user) {
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
 
         Request request = new Request.Builder()
@@ -285,13 +355,36 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
+    public void loginWrongRequestMethodNegativeApiTest() {
+        Request request = new Request.Builder()
+                .url(BASE_URL + LOGIN_URL)
+                .get()
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //System.out.println(response);
+        Assert.assertEquals(response.code(), 403);
+    }
+
+    @Test
     public void loginWrongKeyNegativeApiTest() { // homework
         UserData user = UserData.builder()
-                .email(getProperty("base.properties", "email"))
+                .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
 
-        RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+        Map<String,String> invalidJson = new HashMap<>();
+        invalidJson.put("email", user.getUsername());
+        invalidJson.put("password", user.getPassword());
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(invalidJson), JSON);
 
         Request request = new Request.Builder()
                 .url(BASE_URL + LOGIN_URL)
@@ -306,7 +399,7 @@ public class RegistrationLoginApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
 
-        //System.out.println(response);
-        Assert.assertEquals(response.code(), 400);
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 400); // doesn't work
     }
 }

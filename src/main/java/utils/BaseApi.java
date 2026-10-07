@@ -11,9 +11,15 @@ public interface BaseApi {
             "/v1/user/registration/usernamepassword";
     String LOGIN_URL =
             "/v1/user/login/usernamepassword";
-    String CONTACTS_URL =
+    String ADD_CONTACTS_URL =
             "/v1/contacts";
-    String DEL_ALL_CONTACTS_URL =
+    String GET_CONTACTS_URL =
+            "/v1/contacts";
+    String UPDATE_CONTACTS_URL =
+            "/v1/contacts";
+    String DELETE_CONTACTS_URL =
+            "/v1/contacts";
+    String CLEAR_CONTACTS_URL =
             "/v1/contacts/clear";
 
     MediaType JSON = MediaType.get("application/json");
