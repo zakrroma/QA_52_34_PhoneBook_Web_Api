@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static utils.ContactFactory.*;
 
-public class AddingNewContactApiTests implements BaseApi, ILogin {
+public class AddNewContactApiTests implements BaseApi, ILogin {
     TokenDto tokenDto;
     SoftAssert softAssert = new SoftAssert();
 

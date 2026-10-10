@@ -66,7 +66,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void registrationNullInPasswordNegativeApiTest() {  // homework
+    public void registrationNullInPasswordNegativeApiTest() {
         UserData user = positiveUser();
         user.setPassword(null);
 
@@ -90,7 +90,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void registrationNullInUsernameNegativeApiTest() {  // homework
+    public void registrationNullInUsernameNegativeApiTest() {
         UserData user = positiveUser();
         user.setUsername(null);
 
@@ -161,7 +161,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void registrationWrongKeyNegativeApiTest() { // homework
+    public void registrationWrongKeyNegativeApiTest() {
         UserData user = positiveUser();
 
         Map<String,String> invalidJson = new HashMap<>();
@@ -184,7 +184,7 @@ public class RegistrationLoginApiTests implements BaseApi {
         }
 
         System.out.println(response);
-        Assert.assertEquals(response.code(), 500); // doesn't work
+        Assert.assertEquals(response.code(), 500);
     }
 
     @Test
@@ -303,7 +303,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void loginNullInPasswordNegativeApiTest() { // homework
+    public void loginNullInPasswordNegativeApiTest() {
         UserData user = UserData.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(null)
@@ -329,7 +329,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void loginWrongRequestFormatNegativeApiTest() { // homework
+    public void loginWrongRequestFormatNegativeApiTest() {
         UserData user = UserData.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
@@ -374,7 +374,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     }
 
     @Test
-    public void loginWrongKeyNegativeApiTest() { // homework
+    public void loginWrongKeyNegativeApiTest() {
         UserData user = UserData.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
@@ -400,6 +400,6 @@ public class RegistrationLoginApiTests implements BaseApi {
         }
 
         System.out.println(response);
-        Assert.assertEquals(response.code(), 400); // doesn't work
+        Assert.assertEquals(response.code(), 400);
     }
 }
