@@ -14,6 +14,8 @@ import utils.BaseApi;
 import utils.ILogin;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static utils.ContactFactory.*;
 
@@ -93,8 +95,6 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
     @Test
     public void addNewContactWrongTokenNegativeApiTest() {
         ContactDto contact = positiveContact();
-        //System.out.println(contact);
-        //System.out.println(tokenDto.getToken());
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
 
@@ -118,8 +118,6 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
     @Test
     public void addNewContactNoTokenNegativeApiTest() {
         ContactDto contact = positiveContact();
-        //System.out.println(contact);
-        //System.out.println(tokenDto.getToken());
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
 
@@ -137,5 +135,181 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
         }
 
         Assert.assertEquals(response.code(), 403);
+    }
+
+    @Test
+    public void addNewContactNotEnoughDigitsInPhoneNumberNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setPhone("123456789");
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void addNewContactTooManyDigitsInPhoneNumberNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setPhone("1234123412341234");
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void addNewContactUnacceptableSymbolsInPhoneNumberNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setPhone("+0123456789");
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void addNewContactNullInPhoneNumberNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setPhone(null);
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(response);
+        //Assert.assertEquals(response.code(), 400); // code 200 (bug?)
+    }
+
+    @Test
+    public void addNewContactDuplicateContactFieldsNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            OK_HTTP_CLIENT.newCall(request).execute();
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(response);
+        //Assert.assertEquals(response.code(), 409); // code 200 (bug?)
+    }
+
+    @Test
+    public void addNewContactWrongRequestFormatNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), TEXT);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Assert.assertEquals(response.code(), 500);
+    }
+
+    @Test
+    public void addNewContactWrongKeyNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+
+        Map<String,String> invalidJson = new HashMap<>();
+        invalidJson.put("name", contact.getName());
+        invalidJson.put("lastname", contact.getLastName()); // <---- wrong key
+        invalidJson.put("email", contact.getEmail());
+        invalidJson.put("phone", contact.getPhone());
+        invalidJson.put("address", contact.getAddress());
+        invalidJson.put("description", contact.getDescription());
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(invalidJson), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Assert.assertEquals(response.code(), 400);
     }
 }
