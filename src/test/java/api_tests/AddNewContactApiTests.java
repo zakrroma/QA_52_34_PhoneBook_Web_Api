@@ -138,57 +138,9 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
         Assert.assertEquals(response.code(), 403);
     }
 
-    @Test
-    public void addNewContactNotEnoughDigitsInPhoneNumberNegativeApiTest() { // homework
-        ContactDto contact = positiveContact();
-        contact.setPhone("123456789");
-
-        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
-
-        Request request = new Request.Builder()
-                .url(BASE_URL + ADD_CONTACTS_URL)
-                .addHeader(AUTH, tokenDto.getToken())
-                .post(requestBody)
-                .build();
-
-        Response response;
-
-        try {
-            response = OK_HTTP_CLIENT.newCall(request).execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Assert.assertEquals(response.code(), 400);
-    }
-
     @Test(dataProvider = "wrongPhoneNumberProvider",
             dataProviderClass = ContactDataProvider.class)
     public void addNewContactTooManyDigitsInPhoneNumberNegativeApiTest(ContactDto contact) { // homework
-        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
-
-        Request request = new Request.Builder()
-                .url(BASE_URL + ADD_CONTACTS_URL)
-                .addHeader(AUTH, tokenDto.getToken())
-                .post(requestBody)
-                .build();
-
-        Response response;
-
-        try {
-            response = OK_HTTP_CLIENT.newCall(request).execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Assert.assertEquals(response.code(), 400);
-    }
-
-    @Test
-    public void addNewContactUnacceptableSymbolsInPhoneNumberNegativeApiTest() { // homework
-        ContactDto contact = positiveContact();
-        contact.setPhone("+0123456789");
-
         RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
 
         Request request = new Request.Builder()
