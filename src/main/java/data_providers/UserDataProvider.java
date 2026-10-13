@@ -1,6 +1,6 @@
 package data_providers;
 
-import dto.UserData;
+import dto.UserDto;
 import org.testng.annotations.DataProvider;
 
 import java.io.BufferedReader;
@@ -12,15 +12,15 @@ import java.util.List;
 
 public class UserDataProvider {
     @DataProvider
-    public Iterator<UserData> wrongPasswordProvider() {
-        List<UserData> list = new ArrayList<>();
+    public Iterator<UserDto> wrongPasswordProvider() {
+        List<UserDto> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("src/test/resources/" +
                         "wrong_password.csv"))) {
             String line = bufferedReader.readLine();
             while (line != null) {
                 String[] row = line.split(",");
-                list.add(UserData.builder()
+                list.add(UserDto.builder()
                         .username(row[0])
                         .password(row[1])
                         .build());
@@ -34,15 +34,15 @@ public class UserDataProvider {
     }
 
     @DataProvider
-    public Iterator<UserData> wrongEmailProvider() {
-        List<UserData> list = new ArrayList<>();
+    public Iterator<UserDto> wrongEmailProvider() {
+        List<UserDto> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(
                 new FileReader("src/test/resources/" +
                         "wrong_email.csv"))) {
             String line = bufferedReader.readLine();
             while (line != null) {
                 String[] row = line.split(",");
-                list.add(UserData.builder()
+                list.add(UserDto.builder()
                         .username(row[0])
                         .password(row[1])
                         .build());

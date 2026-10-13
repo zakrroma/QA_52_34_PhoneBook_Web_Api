@@ -1,6 +1,6 @@
 package ui_tests;
 
-import dto.UserData;
+import dto.UserDto;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -29,7 +29,7 @@ public class LoginTests extends AppManager {
 
     @Test(groups = {"smoke","user","positive"})
     public void loginPositiveTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -48,7 +48,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginUnregisteredUserNegativeTest() {
-        UserData user = UserFactory.positiveUser();
+        UserDto user = UserFactory.positiveUser();
 
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnLogin();
@@ -69,7 +69,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginEmptyEmailFieldNegativeTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username("")
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -83,7 +83,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginEmptyPasswordFieldNegativeTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password("")
                 .build();
@@ -97,7 +97,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginWrongEmailNegativeTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username("email@qwer.ty")
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -111,7 +111,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginWrongPasswordNegativeTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password("Pass1234!")
                 .build();

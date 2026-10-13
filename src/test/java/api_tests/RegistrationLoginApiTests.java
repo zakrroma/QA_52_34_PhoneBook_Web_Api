@@ -1,6 +1,6 @@
 package api_tests;
 
-import dto.UserData;
+import dto.UserDto;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -20,7 +20,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationPositiveApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
 
@@ -43,7 +43,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationWrongPasswordNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         user.setPassword("wrongPassword1");
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
@@ -67,7 +67,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationNullInPasswordNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         user.setPassword(null);
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
@@ -91,7 +91,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationNullInUsernameNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         user.setUsername(null);
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
@@ -115,7 +115,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationDuplicateUserDataNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
 
@@ -139,7 +139,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationWrongRequestFormatNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), TEXT);
 
@@ -162,7 +162,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void registrationWrongKeyNegativeApiTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
 
         Map<String,String> invalidJson = new HashMap<>();
         invalidJson.put("email", user.getUsername());
@@ -191,8 +191,7 @@ public class RegistrationLoginApiTests implements BaseApi {
     public void registrationWrongRequestMethodNegativeApiTest() {
         Request request = new Request.Builder()
                 .url(BASE_URL + REG_URL)
-                .get()
-                .build();
+                .get()                .build();
 
         Response response;
 
@@ -208,7 +207,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void loginPositiveApiTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -234,7 +233,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void loginWrongPasswordNegativeApiTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password("wrongPassword1!")
                 .build();
@@ -260,7 +259,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test(dataProvider = "wrongEmailProvider",
             dataProviderClass = UserDataProvider.class)
-    public void loginWrongUsernameDataProviderNegativeApiTest(UserData user) {
+    public void loginWrongUsernameDataProviderNegativeApiTest(UserDto user) {
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
 
         Request request = new Request.Builder()
@@ -282,7 +281,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test(dataProvider = "wrongPasswordProvider",
             dataProviderClass = UserDataProvider.class)
-    public void loginWrongPasswordDataProviderNegativeApiTest(UserData user) {
+    public void loginWrongPasswordDataProviderNegativeApiTest(UserDto user) {
         RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
 
         Request request = new Request.Builder()
@@ -304,7 +303,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void loginNullInPasswordNegativeApiTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(null)
                 .build();
@@ -330,7 +329,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void loginWrongRequestFormatNegativeApiTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -375,7 +374,7 @@ public class RegistrationLoginApiTests implements BaseApi {
 
     @Test
     public void loginWrongKeyNegativeApiTest() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();

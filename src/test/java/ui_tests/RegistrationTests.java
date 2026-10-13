@@ -1,7 +1,7 @@
 package ui_tests;
 
 import data_providers.UserDataProvider;
-import dto.UserData;
+import dto.UserDto;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -31,7 +31,7 @@ public class RegistrationTests extends AppManager {
     @Test(groups = {"smoke","user","positive"})
     public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username("username" + i + "@qwer.ty")
                 .password(getProperty("base.properties", "password"))
                 .build();
@@ -45,7 +45,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationPositiveTest2() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         System.out.println(user);
 
         loginPage.fillLoginRegistrationForm(user);
@@ -65,7 +65,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationEmptyEmailFieldNegativeTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         user.setUsername("");
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
@@ -75,7 +75,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationEmptyPasswordFieldNegativeTest() {
-        UserData user = positiveUser();
+        UserDto user = positiveUser();
         user.setPassword("");
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
@@ -85,7 +85,7 @@ public class RegistrationTests extends AppManager {
 
     @Test(dataProvider = "wrongPasswordProvider",
             dataProviderClass = UserDataProvider.class)
-    public void registrationWrongPasswordFieldNegativeTest(UserData user) {
+    public void registrationWrongPasswordFieldNegativeTest(UserDto user) {
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
         Assert.assertTrue(loginPage.closeAlert()
@@ -94,7 +94,7 @@ public class RegistrationTests extends AppManager {
 
     @Test(dataProvider = "wrongEmailProvider",
             dataProviderClass = UserDataProvider.class)
-    public void registrationWrongEmailFieldNegativeTest(UserData user) {
+    public void registrationWrongEmailFieldNegativeTest(UserDto user) {
         loginPage.fillLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
         Assert.assertTrue(loginPage.closeAlert()

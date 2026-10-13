@@ -1,12 +1,11 @@
 package pages;
 
-import dto.UserData;
+import dto.UserDto;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import utils.UserFactory;
 
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
@@ -26,7 +25,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//form/button[2]")
     WebElement btnRegistration;
 
-    public void fillLoginRegistrationForm(UserData user) {
+    public void fillLoginRegistrationForm(UserDto user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
     }

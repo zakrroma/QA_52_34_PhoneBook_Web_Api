@@ -3,7 +3,7 @@ package utils;
 import dto.ContactDto;
 import dto.ResponseMessageDto;
 import dto.TokenDto;
-import dto.UserData;
+import dto.UserDto;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -15,7 +15,7 @@ import static utils.PropertiesReader.getProperty;
 
 public interface ICreateContact extends BaseApi {
     default TokenDto getTokenToCreateContact() {
-        UserData user = UserData.builder()
+        UserDto user = UserDto.builder()
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
