@@ -1,5 +1,6 @@
 package api_tests;
 
+import data_providers.ContactDataProvider;
 import dto.ContactDto;
 import dto.ResponseMessageDto;
 import dto.TokenDto;
@@ -161,11 +162,9 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
         Assert.assertEquals(response.code(), 400);
     }
 
-    @Test
-    public void addNewContactTooManyDigitsInPhoneNumberNegativeApiTest() { // homework
-        ContactDto contact = positiveContact();
-        contact.setPhone("1234123412341234");
-
+    @Test(dataProvider = "wrongPhoneNumberProvider",
+            dataProviderClass = ContactDataProvider.class)
+    public void addNewContactTooManyDigitsInPhoneNumberNegativeApiTest(ContactDto contact) { // homework
         RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
 
         Request request = new Request.Builder()
@@ -210,9 +209,9 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
     }
 
     @Test
-    public void addNewContactNullInPhoneNumberNegativeApiTest() { // homework
+    public void addNewContactNullInNameNegativeApiTest() { // homework
         ContactDto contact = positiveContact();
-        contact.setPhone(null);
+        contact.setName(null);
 
         RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
 
@@ -231,7 +230,57 @@ public class AddNewContactApiTests implements BaseApi, ILogin {
         }
 
         System.out.println(response);
-        //Assert.assertEquals(response.code(), 400); // code 200 (bug?)
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void addNewContactNullInLastNameNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setLastName(null);
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void addNewContactNullInAddressNegativeApiTest() { // homework
+        ContactDto contact = positiveContact();
+        contact.setAddress(null);
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(contact), JSON);
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_CONTACTS_URL)
+                .addHeader(AUTH, tokenDto.getToken())
+                .post(requestBody)
+                .build();
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 400);
     }
 
     @Test

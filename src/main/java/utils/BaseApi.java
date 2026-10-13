@@ -18,7 +18,7 @@ public interface BaseApi {
     String UPDATE_CONTACTS_URL =
             "/v1/contacts";
     String DELETE_CONTACTS_URL =
-            "/v1/contacts";
+            "/v1/contacts/";
     String CLEAR_CONTACTS_URL =
             "/v1/contacts/clear";
 

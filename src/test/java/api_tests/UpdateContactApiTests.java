@@ -55,4 +55,25 @@ public class UpdateContactApiTests
         System.out.println(response);
         Assert.assertEquals(response.code(), 200);
     }
+
+    @Test
+    public void deleteContactPositiveApiTest() {
+        Request request = new Request.Builder()
+                .url(BASE_URL + DELETE_CONTACTS_URL + contactID)
+                .addHeader(AUTH, tokenDto.getToken())
+                .delete()
+                .build();
+        System.out.println(request);
+
+        Response response;
+
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 200);
+    }
 }
